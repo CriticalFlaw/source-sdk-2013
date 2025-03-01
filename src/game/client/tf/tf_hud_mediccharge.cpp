@@ -51,7 +51,9 @@ private:
 	CTFImagePanel*					m_pResistPanel;
 	CUtlVector<vgui::ContinuousProgressBar*>	m_vecpChargeMeters;
 	Label*							m_pUberchargeLabel;
+	Label*							m_pUberchargeLabelShadow;
 	Label*							m_pUberchargeCountLabel;
+	Label*							m_pUberchargeCountLabelShadow;
 
 	bool m_bCharged;
 	float m_flLastChargeValue;
@@ -119,13 +121,17 @@ void CHudMedicChargeMeter::ApplySchemeSettings( IScheme *pScheme )
 	LoadControlSettings( "resource/UI/HudMedicCharge.res" );
 
 	m_pUberchargeLabel = dynamic_cast<Label*>( FindChildByName("ChargeLabel") );
+	m_pUberchargeLabelShadow = dynamic_cast<Label*>(FindChildByName("ChargeLabelShadow"));
 	Assert( m_pUberchargeLabel );
 
 	m_pUberchargeCountLabel = dynamic_cast<Label*>( FindChildByName("IndividualChargesLabel") );
+	m_pUberchargeCountLabelShadow = dynamic_cast<Label*>(FindChildByName("IndividualChargesLabelShadow"));
 	Assert( m_pUberchargeCountLabel );
-	if( m_pUberchargeCountLabel )
+
+	if( m_pUberchargeCountLabel && m_pUberchargeCountLabelShadow )
 	{
 		m_pUberchargeCountLabel->SetVisible( false );
+		m_pUberchargeCountLabelShadow->SetVisible(false);
 	}
 
 	for( int i=0; i<weapon_medigun_resist_num_chunks.GetInt(); ++i )
@@ -335,12 +341,14 @@ void CHudMedicChargeMeter::UpdateControlVisibility()
 	}
 
 	m_pChargeMeter->SetVisible( !bResistMedigun );
-	if( m_pUberchargeLabel )
+	if( m_pUberchargeLabel && m_pUberchargeLabelShadow )
 	{
 		m_pUberchargeLabel->SetVisible( !bResistMedigun );
+		m_pUberchargeLabelShadow->SetVisible(!bResistMedigun);
 	}
-	if( m_pUberchargeCountLabel )
+	if( m_pUberchargeCountLabel && m_pUberchargeCountLabelShadow )
 	{
 		m_pUberchargeCountLabel->SetVisible( bResistMedigun );
+		m_pUberchargeCountLabelShadow->SetVisible(bResistMedigun);
 	}
 }
