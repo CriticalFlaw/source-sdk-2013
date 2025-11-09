@@ -557,7 +557,7 @@ void CHudItemEffectMeter::Update( C_TFPlayer* pPlayer )
 		}
 		else
 		{
-			m_vecProgressBars[i]->SetFgColor( m_ProgressBar_FgColor );
+			m_vecProgressBars[i]->SetFgColor( GetProgressBarColor() );
 		}
 	}
 
@@ -1093,7 +1093,7 @@ Color CHudItemEffectMeter_Weapon<CTFRocketPack>::GetProgressBarColor( void )
 		}
 		else
 		{
-			return Color( 255, 255, 255, 255 );
+			return Color( m_ProgressBar_FgColor );
 		}
 	}
 
@@ -1178,7 +1178,7 @@ Color CHudItemEffectMeter_Weapon<CTFParticleCannon>::GetProgressBarColor( void )
 	CTFParticleCannon *pWeapon = GetWeapon();
 	
 	if ( pWeapon && pWeapon->CanChargeFire() )
-		return Color( 255, 255, 255, 255 );
+		return Color( m_ProgressBar_FgColor );
 	else
 		return Color( 255, 0, 0, 255 );
 }
